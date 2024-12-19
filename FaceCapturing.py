@@ -6,15 +6,15 @@ from tkinter import simpledialog
 # Function to get user input via GUI
 def get_dataset_name():
     root = tk.Tk()
-    root.withdraw()  # Hide the main tkinter window
+    root.withdraw()  # Hiding the main tkinter window
     dataset_name = simpledialog.askstring("Dataset Name", "Enter your name for the dataset:")
-    root.destroy()  # Close the tkinter instance
+    root.destroy()  # Closing the tkinter instance
     return dataset_name
 
 # Initialize camera
 cam = cv2.VideoCapture(0)
 
-# Get the dataset name from the user
+#  the dataset name from the user
 fileName = get_dataset_name()
 
 if not fileName:
