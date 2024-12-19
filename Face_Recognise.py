@@ -72,30 +72,30 @@ while True:
         print("Reading Camera Failed!")
         break
 
-    # Convert the image to grayscale
+    # Converting the image into grayscale
     grayImg = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    # Detect faces in the image
+    # Detecting faces in the image
     faces = model.detectMultiScale(grayImg, 1.3, 5)
 
     for f in faces:
         x, y, w, h = f
         
-        # Boundary check: Ensure coordinates stay within image dimensions
+        # Boundaries check: Ensure coordinates stay within image dimensions
         if x - offset < 0 or y - offset < 0 or x + w + offset > img.shape[1] or y + h + offset > img.shape[0]:
             continue  # Skip if face goes out of bounds
         
-        # Crop the face
+        # Croping the face
         cropped_face = img[y - offset:y+h + offset, x - offset:x+w + offset]
 
-        # If cropped_face is valid, resize it
-        if cropped_face.size > 0:  # Check if it's not empty
+        # If cropped face is valid, resize it
+        if cropped_face.size > 0:  # Checking if it's not empty
             cropped_face = cv2.resize(cropped_face, (100, 100))
 
             # Preprocess the cropped face
             cropped_face = preprocess_image(cropped_face.flatten())  # Scale input
 
-            # Predict using KNN
+            # Predicting using KNN
             classPredicted = knn(XT, yT, cropped_face)
             namePredicted = nameMap[classPredicted]
 
